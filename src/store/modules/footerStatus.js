@@ -23,7 +23,8 @@ const mutations = {
     state.showFooter = false
   },
   changeTap(state,num){
-    state.changeableNum =num
+    state.changeableNum =num;
+    window.localStorage.setItem('nav',num)
   },
   showL(state){
     state.showLeft =true

@@ -40,9 +40,15 @@ export default {
   },
   created(){
     //console.log(this.$store.getters.isShow);
-    // this.$store.commit('changeTap',5);
+      if(window.localStorage.getItem('nav')){
+          this.$store.commit('footerStatus/changeTap',window.localStorage.getItem('nav'));
+      }else {
+          this.$store.commit('footerStatus/changeTap',1);
+      }
+
     // this.$store.dispatch('getNewNum',10);
     // console.log(this.$store.getters.getChangeableNum)
+      window.localStorage.getItem('nav')
   },
   computed:{
     ...mapGetters('footerStatus',['isShow','leftShow'])

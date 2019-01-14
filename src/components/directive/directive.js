@@ -25,23 +25,55 @@ import Vue from 'vue';
 
 const progress = Vue.directive('progress', function (el, binding) {
     console.log(binding.value);
-    const progressBar = document.createElement('div');
-    if(el.childNodes.length==0){
-        progressBar.style.backgroundColor=binding.value.color;
-        progressBar.style.width='0';
-        progressBar.style.height=binding.value.height+'px';
-        progressBar.style.borderRadius=binding.value.height/2+'px';
-        el.appendChild(progressBar);
-        progressBar.style.transition='width 1s ease';
-        setTimeout(function () {
-            progressBar.style.width=binding.value.width+'px';
-        },0);
+    if(binding.value.type=='circle'){
+       if(el.childNodes.length==1) {
+           const circleProgressBar = document.createElement('canvas');
+           circleProgressBar.width =200;
+           circleProgressBar.height =200;
+           const ctx=circleProgressBar.getContext("2d");
+           ctx.save();
+           ctx.translate(100, 100);
+           el.appendChild(circleProgressBar);
+           ctx.beginPath();
+           ctx.lineWidth = 6;
+           ctx.strokeStyle="#ccc";
+           ctx.arc(0,0,50,0,2*Math.PI);
+           ctx.stroke();
+
+           var count = 0;
+           const setInter= setInterval(function () {
+               if(count<=binding.value.count){
+                   count++;
+                   ctx.beginPath();
+                   ctx.lineWidth = 6;
+                   ctx.strokeStyle="cyan";
+                   ctx.arc(0,0,50,3/2*Math.PI,3/2*Math.PI+2*Math.PI*(count/100));
+                   ctx.stroke();
+               }else {
+                   clearInterval(setInter)
+               }
+           },30)
+       }
+        console.log(el)
     }else {
-        setTimeout(function () {
-            el.childNodes[0].style.width=binding.value.width+'px';
-        },0);
+        const progressBar = document.createElement('div');
+        if(el.childNodes.length==0){
+            progressBar.style.backgroundColor=binding.value.color;
+            progressBar.style.width='0';
+            progressBar.style.height=binding.value.height+'px';
+            progressBar.style.borderRadius=binding.value.height/2+'px';
+            el.appendChild(progressBar);
+            progressBar.style.transition='width 1s ease';
+            setTimeout(function () {
+                progressBar.style.width=binding.value.width+'px';
+            },0);
+        }else {
+            setTimeout(function () {
+                el.childNodes[0].style.width=binding.value.width+'px';
+            },0);
+        }
+
     }
-    console.log(el)
 });
 
 export default progress

@@ -1,10 +1,16 @@
 <template>
   <transition name="fade">
     <div class="home">
-      <div class="clock" v-progress="param" @click="test">
+      <div class="clock">
         <!--<canvas  v-circle width="310" height="310">-->
 
         <!--</canvas >-->
+      </div>
+      <div v-progress="param"></div>
+      <div class="circle" v-progress="param1">
+        <div class="circleTitle">
+          {{param1.count+'%'}}
+        </div>
       </div>
     </div>
   </transition>
@@ -15,7 +21,8 @@
         name: "home",
         data(){
             return {
-                param:{height:10,color:'cyan',width:100}
+                param:{height:10,color:'cyan',width:100,type:'line'},
+                param1:{type:'circle',count:80}
             }
         },
         methods:{
@@ -122,12 +129,15 @@
 </script>
 
 <style scoped>
-  .home{ background-color: #f7f7f7; display: flex; align-items: center; justify-content: center; padding-top: 20px}
+  .home{ background-color: #f7f7f7; padding-top: 20px}
   .clock{width: 310px; height: 310px}
   .fade-enter-active, .fade-leave-active {
     transition: all .5s ease;
     transform: translateX(0vw);
   }
+  .circle{width: 200px; height: 200px; margin: 0 auto;position: relative;}
+  .circleTitle{position: absolute; top:50%; left: 50%; width: 40px; height: 40px; text-align: center; line-height: 40px;
+    margin-left: -20px; margin-top: -20px; font-size: 20px}
   .fade-enter, .fade-leave-to {
     opacity: 0;
     transform: translateX(-100vw);

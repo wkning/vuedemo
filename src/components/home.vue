@@ -1,10 +1,10 @@
 <template>
   <transition name="fade">
     <div class="home">
-      <div class="clock">
-        <canvas  v-circle width="310" height="310">
+      <div class="clock" v-progress="param" @click="test">
+        <!--<canvas  v-circle width="310" height="310">-->
 
-        </canvas >
+        <!--</canvas >-->
       </div>
     </div>
   </transition>
@@ -13,6 +13,18 @@
 <script>
     export default {
         name: "home",
+        data(){
+            return {
+                param:{height:10,color:'cyan',width:100}
+            }
+        },
+        methods:{
+            test(){
+                console.log(123);
+                this.param.width=this.param.width+10
+                this.param= {height:10,color:'cyan',width:this.param.width}
+            }
+        },
         directives:{
           circle:function (el) {
             setInterval(function () {

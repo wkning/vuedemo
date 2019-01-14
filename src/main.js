@@ -6,6 +6,7 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import './assets/css/reset.css'
+import './components/directive/directive'
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://www.mige.in/develop';

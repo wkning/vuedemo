@@ -22,11 +22,13 @@ import Vue from 'vue';
 //         console.log('unbind')
 //     }
 // });
-
+var canClick = true;
 const progress = Vue.directive('progress', function (el, binding) {
     console.log(binding.value);
     if(binding.value.type=='circle'){
+
        if(el.childNodes.length==1) {
+           canClick =false;
            const circleProgressBar = document.createElement('canvas');
            circleProgressBar.width =200;
            circleProgressBar.height =200;
@@ -39,7 +41,6 @@ const progress = Vue.directive('progress', function (el, binding) {
            ctx.strokeStyle="#ccc";
            ctx.arc(0,0,50,0,2*Math.PI);
            ctx.stroke();
-
            var count = 0;
            const setInter= setInterval(function () {
                if(count<=binding.value.count){
@@ -50,9 +51,42 @@ const progress = Vue.directive('progress', function (el, binding) {
                    ctx.arc(0,0,50,3/2*Math.PI,3/2*Math.PI+2*Math.PI*(count/100));
                    ctx.stroke();
                }else {
+                   canClick =true;
+                   ctx.restore();
                    clearInterval(setInter)
                }
-           },30)
+           },30);
+       }else {
+            if(canClick){
+                canClick = false;
+                console.log(el.childNodes[1]);
+                const ctx=el.childNodes[1].getContext("2d");
+                ctx.clearRect(0, 0, 200, 200);
+                ctx.save();
+                ctx.translate(100, 100);
+                ctx.beginPath();
+                ctx.lineWidth = 6;
+                ctx.strokeStyle="#ccc";
+                ctx.arc(0,0,50,0,2*Math.PI);
+                ctx.stroke();
+
+                var count = 0;
+                const setInter= setInterval(function () {
+                    if(count<=binding.value.count){
+                        count++;
+                        ctx.beginPath();
+                        ctx.lineWidth = 6;
+                        ctx.strokeStyle="cyan";
+                        ctx.arc(0,0,50,3/2*Math.PI,3/2*Math.PI+2*Math.PI*(count/100));
+                        ctx.stroke();
+                    }else {
+                        canClick =true;
+                        ctx.restore();
+                        clearInterval(setInter)
+                    }
+                },30);
+            }
+
        }
         console.log(el)
     }else {

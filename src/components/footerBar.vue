@@ -27,20 +27,17 @@
       showPurchase:function () {
         this.$store.dispatch('footerStatus/getNewNum',3);
         this.$router.push({path:'/purcharse'})
-      },
-
+      }
     },
     computed:{
       //第一种获取vuex state值
       ...mapState({
         nowTab:state=>state.footerStatus.changeableNum
       }),
-
       //第二种获取state的值通过getters
       // ...mapGetters('footerStatus',{
       //   nowTab:'getChangeableNum'
       // })
-
       //...mapGetters('footerStatus',['getChangeableNum'])
     }
 

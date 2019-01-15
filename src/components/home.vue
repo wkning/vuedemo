@@ -15,7 +15,7 @@
       <div class="line" v-progress="param"></div>
       <hr>
       <div class="circle" v-progress="param1">
-        <div class="circleTitle">
+        <div class="circleTitle" @click="changeParam1">
           {{param1.count+'%'}}
         </div>
       </div>
@@ -37,7 +37,13 @@
                 console.log(123);
                 this.param.width=this.param.width+10
                 this.param= {height:10,color:'cyan',width:this.param.width}
+            },
+            changeParam1:function () {
+                const num = Math.floor(Math.random()*100)
+                console.log(num);
+                this.param1= {type:'circle',count:num}
             }
+
         },
         directives:{
           circle:function (el) {
@@ -133,67 +139,67 @@
             },1000);
           },
           circle1:function (el) {
-                setInterval(function () {
-                    const ctx=el.getContext("2d");
-                    ctx.clearRect(0, 0, 600, 600);
-                    //console.log(ctx);
-                    //修改坐标原点
-                    ctx.save();
-                    ctx.translate(310, 310);
-                    const date = new Date();
-                    var hours = date.getHours();
-                    var minutes = date.getMinutes();
-                    var second = date.getSeconds();
-                    if(date.getHours()>12){
-                        hours-=12;
-                    }
-                    //画时针
-                    var hoursAngle = (Math.PI / 180)*30*hours + (Math.PI / 6)*(minutes/60);
-                    ctx.save();
-                    ctx.rotate(hoursAngle);
-                    ctx.beginPath();
-                    ctx.fillStyle = "red";
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(-12, -60);
-                    ctx.lineTo(0, -200);
-                    ctx.lineTo(12, -60);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
+              setInterval(function () {
+                  const ctx=el.getContext("2d");
+                  ctx.clearRect(0, 0, 600, 600);
+                  //console.log(ctx);
+                  //修改坐标原点
+                  ctx.save();
+                  ctx.translate(310, 310);
+                  const date = new Date();
+                  var hours = date.getHours();
+                  var minutes = date.getMinutes();
+                  var second = date.getSeconds();
+                  if(date.getHours()>12){
+                      hours-=12;
+                  }
+                  //画时针
+                  var hoursAngle = (Math.PI / 180)*30*hours + (Math.PI / 6)*(minutes/60);
+                  ctx.save();
+                  ctx.rotate(hoursAngle);
+                  ctx.beginPath();
+                  ctx.fillStyle = "red";
+                  ctx.moveTo(0, 0);
+                  ctx.lineTo(-12, -60);
+                  ctx.lineTo(0, -200);
+                  ctx.lineTo(12, -60);
+                  ctx.closePath();
+                  ctx.fill();
+                  ctx.restore();
 
-                    //画分针
-                    var minutesAngle = (Math.PI / 180)*minutes*6 + (Math.PI / 30)*(second/60);
-                    ctx.save();
-                    ctx.rotate(minutesAngle);
-                    ctx.beginPath();
-                    ctx.fillStyle = "yellow";
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(-8, -80);
-                    ctx.lineTo(0, -240);
-                    ctx.lineTo(8, -80);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
-                    //画秒针
-                    ctx.save();
-                    ctx.rotate((Math.PI / 180)*second*6);
-                    ctx.beginPath();
-                    ctx.fillStyle = "black";
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(-10, -90);
-                    ctx.lineTo(0, -270);
-                    ctx.lineTo(10, -90);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
+                  //画分针
+                  var minutesAngle = (Math.PI / 180)*minutes*6 + (Math.PI / 30)*(second/60);
+                  ctx.save();
+                  ctx.rotate(minutesAngle);
+                  ctx.beginPath();
+                  ctx.fillStyle = "yellow";
+                  ctx.moveTo(0, 0);
+                  ctx.lineTo(-8, -80);
+                  ctx.lineTo(0, -240);
+                  ctx.lineTo(8, -80);
+                  ctx.closePath();
+                  ctx.fill();
+                  ctx.restore();
+                  //画秒针
+                  ctx.save();
+                  ctx.rotate((Math.PI / 180)*second*6);
+                  ctx.beginPath();
+                  ctx.fillStyle = "black";
+                  ctx.moveTo(0, 0);
+                  ctx.lineTo(-10, -90);
+                  ctx.lineTo(0, -270);
+                  ctx.lineTo(10, -90);
+                  ctx.closePath();
+                  ctx.fill();
+                  ctx.restore();
 
-                    //画中心
-                    ctx.beginPath();
-                    ctx.fillStyle = "blue";
-                    ctx.arc(0,0,20,0,2*Math.PI);
-                    ctx.fill();
-                    ctx.restore();
-                },1000);
+                  //画中心
+                  ctx.beginPath();
+                  ctx.fillStyle = "blue";
+                  ctx.arc(0,0,20,0,2*Math.PI);
+                  ctx.fill();
+                  ctx.restore();
+              },1000);
             }
         }
     }

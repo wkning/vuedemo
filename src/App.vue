@@ -18,8 +18,15 @@
       </div>
     </transition>
     <transition name="fade3">
-      <div class="leftBar" @click="hideLeft" v-if="leftShow">
-
+      <div class="leftBar"  v-if="leftShow">
+        <div class="parentItem" v-for="(item,index) in barList">
+          <div class="parentTitle" @click="showChild(index,item)">{{item.name}}{{index}}</div>
+          <div class="childContent" :style="'height:'+item.height">
+            <div class="childItem" v-for="val in item.childList" >
+              <div class="childTitle" @click="hideLeft">{{val.name}}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </transition>
   </div>
@@ -35,7 +42,14 @@ export default {
   components:{navBar, footerBar},
   data(){
     return {
-
+      barList:[
+          {
+              name:"第一类",height:'0',childList:[{name:"1.1"},{name:"1.2"},{name:"1.3"}]
+          },
+          {
+              name:"第二类",height:'0',childList:[{name:"2.1"},{name:"2.2"},{name:"2.3"}]
+          }
+      ]
     }
   },
   created(){
@@ -48,7 +62,8 @@ export default {
 
     // this.$store.dispatch('getNewNum',10);
     // console.log(this.$store.getters.getChangeableNum)
-      window.localStorage.getItem('nav')
+      console.log(window.localStorage.getItem('nav'))
+
   },
   computed:{
     ...mapGetters('footerStatus',['isShow','leftShow'])
@@ -56,6 +71,15 @@ export default {
   methods:{
     hideLeft:function () {
       this.$store.commit('footerStatus/hideL')
+    },
+    showChild:function (index,val) {
+        const arr = this.barList;
+        if(val.height=='120px'){
+            arr[index].height = 0;
+        }else {
+            arr[index].height = val.childList.length*40+'px';
+        }
+        this.barList = arr;
     }
   },
   watch:{
@@ -71,6 +95,11 @@ export default {
   #app {
 
   }
+  .parentItem{width: 100%; margin-bottom: 5px}
+  .childItem{width: 100%;}
+  .childContent{width: 100%; transition: height ease-in-out 1s; height: 0; overflow: hidden}
+  .parentTitle{background:  aquamarine; height: 40px; color: white;line-height: 40px}
+  .childTitle{background: royalblue; height: 36px; color: white; padding-left: 20px; line-height: 40px; margin-bottom: 4px}
   .fade3-enter-active, .fade3-leave-active {
     transition: all .5s ease;
     transform: translateX(0);
@@ -105,5 +134,5 @@ export default {
   .navBar{position: fixed; top: 0; left: 0; right: 0; height: 40px; border-bottom: 1px solid #ccc;}
   .footer{position: fixed; bottom: 0; left: 0; right: 0; height: 64px; border-top: 1px solid #ccc;}
   .leftBarBg{position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.5)}
-  .leftBar{height: 100vh; width: 60vw; background-color: white;position: fixed;left: 0; top:0}
+  .leftBar{height: 100vh; width: 60vw; background-color: white;position: fixed;left: 0; top:0; display: flex; flex-direction: column;}
 </style>

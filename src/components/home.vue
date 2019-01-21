@@ -27,7 +27,7 @@
     export default {
         name: "home",
         data(){
-            return {
+                return {
                 param:{height:10,color:'cyan',width:100,type:'line'},
                 param1:{type:'circle',count:80}
             }
@@ -35,15 +35,14 @@
         methods:{
             test(){
                 console.log(123);
-                this.param.width=this.param.width+10
+                this.param.width=this.param.width+10;
                 this.param= {height:10,color:'cyan',width:this.param.width}
             },
             changeParam1:function () {
-                const num = Math.floor(Math.random()*100)
+                const num = Math.floor(Math.random()*100);
                 console.log(num);
                 this.param1= {type:'circle',count:num}
             }
-
         },
         directives:{
           circle:function (el) {
@@ -74,7 +73,7 @@
                   ctx.textAlign='center';
                   ctx.font = "40px 雅黑";
                   ctx.fillText(i/5, 0, 0);
-                  ctx.restore();
+                  ctx.restore()
                 }else {
                   ctx.moveTo(0, -290);
                   ctx.lineTo(0, -300);
@@ -213,7 +212,7 @@
     transition: all .5s ease;
     transform: translateX(0vw);
   }
-  .line{width: 100%; height: 50px; margin: 0 auto; display: flex; align-items: center;justify-content: center;}
+  .line{width: 100%; height: 50px; margin: 0 auto; display: flex; align-items: center;justify-content: flex-start;}
   .circle{width: 200px; height: 200px; margin: 0 auto;position: relative;}
   .circleTitle{position: absolute; top:50%; left: 50%; width: 40px; height: 40px; text-align: center; line-height: 40px;
     margin-left: -20px; margin-top: -20px; font-size: 20px}

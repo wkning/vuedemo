@@ -17,6 +17,7 @@ const getters = {
 };
 const mutations = {
   show(state){
+    state.changeableNum = 1
     state.showFooter =true
   },
   hide(state){

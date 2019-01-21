@@ -3,6 +3,7 @@
       <div @click="showHome" :class="nowTab==1?'active':''">首页{{nowTab}}</div>
       <div @click="showList" :class="nowTab==2?'active':''">列表</div>
       <div @click="showPurchase" :class="nowTab==3?'active':''">购物车</div>
+        <div @click="showCartogram" :class="nowTab==4?'active':''">统计图</div>
     </div>
 </template>
 
@@ -27,6 +28,10 @@
       showPurchase:function () {
         this.$store.dispatch('footerStatus/getNewNum',3);
         this.$router.push({path:'/purcharse'})
+      },
+      showCartogram:function () {
+          this.$store.dispatch('footerStatus/getNewNum',4);
+          this.$router.push({path:'/cartogram'})
       }
     },
     computed:{

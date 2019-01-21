@@ -1,6 +1,7 @@
 <template>
     <div class="navBar">
       <div class="navBarL" @click="showLeft">侧边菜单</div>
+        <div class="navBarC"></div>
       <div class="navBarR">
         <div>{{nowUser.username}}</div>
         <div @click="loginOut" v-if="nowUser.token">LoginOut</div>

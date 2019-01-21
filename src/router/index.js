@@ -5,6 +5,7 @@ import List from '../components/list'
 import Purcharse from '../components/purcharse'
 import Login from '../components/loginPage'
 import store from '../store/index'
+import Cartogram from '../components/cartogram/index'
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ const routes =[
     path: '/list',
     name: 'List',
     component: List
+  },
+  {
+      path: '/cartogram',
+      name: 'Cartogram',
+      component: Cartogram
   },
   {
     path: '/purcharse',

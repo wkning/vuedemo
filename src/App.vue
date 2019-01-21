@@ -59,7 +59,6 @@ export default {
       }else {
           this.$store.commit('footerStatus/changeTap',1);
       }
-
     // this.$store.dispatch('getNewNum',10);
     // console.log(this.$store.getters.getChangeableNum)
       console.log(window.localStorage.getItem('nav'))
@@ -74,7 +73,7 @@ export default {
     },
     showChild:function (index,val) {
         const arr = this.barList;
-        if(val.height=='120px'){
+        if(val.height==val.childList.length*40+'px'){
             arr[index].height = 0;
         }else {
             arr[index].height = val.childList.length*40+'px';

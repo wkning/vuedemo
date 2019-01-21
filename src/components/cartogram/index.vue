@@ -41,8 +41,6 @@
                 circleCtx.closePath();
                 circleCtx.fill();
             });
-
-
         },
         methods:{
             randomColor:function () {

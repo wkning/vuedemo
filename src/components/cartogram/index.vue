@@ -1,9 +1,21 @@
 <template>
     <div class="cartogram">
         <div class="item">
-            <div class="itemTitle"></div>
+            <div class="itemTitle">扇形统计图</div>
             <div class="itemContent">
-                <canvas ref="circle" width="800" height="400" style="width: 100vw; height: 50vw"></canvas>
+                <canvas ref="circle" width="1000" height="500" style="width: 100vw; height: 50vw"></canvas>
+            </div>
+        </div>
+        <div class="item">
+            <div class="itemTitle">折线统计图</div>
+            <div class="itemContent">
+                <canvas v-brokenLine="val" width="1000" height="500" style="width: 100vw; height: 50vw"></canvas>
+            </div>
+        </div>
+        <div class="item">
+            <div class="itemTitle">扇形统计图</div>
+            <div class="itemContent">
+
             </div>
         </div>
     </div>
@@ -14,24 +26,25 @@
         name: "index",
         data(){
             return {
-
+                val:[87,24,76]
             }
         },
         created(){
 
         },
         mounted(){
-            const list = [10,20,30,40,60,70,100,20,30];
+            const list = [20,30,50,20,40,70,90];
             var sum = eval(list.join("+"));
             const circle = this.$refs.circle;
             const circleCtx = circle.getContext("2d");
-            circleCtx.translate(400,200);
+            circleCtx.translate(500,250);
+            circleCtx.rotate(1.5*Math.PI);
             list.forEach((item,index)=> {
                 var front=0,after=0;
                 if(index<1){
                     front=0;
                 }else {
-                    front= this.countPrecent(list,index-1)/sum
+                    front= this.countPrecent(list,index-1)/sum;
                 }
                 after = this.countPrecent(list,index)/sum;
                 circleCtx.fillStyle=this.randomColor();
@@ -40,6 +53,17 @@
                 circleCtx.arc(0,0,150,front*2*Math.PI,after*2*Math.PI,false);
                 circleCtx.closePath();
                 circleCtx.fill();
+                circleCtx.save();
+                circleCtx.rotate(after*Math.PI+front*Math.PI);
+                circleCtx.moveTo(100,0);
+                circleCtx.lineTo(180,0);
+                circleCtx.font = "20px '微软雅黑'";
+                //start|end|center|left|right
+                circleCtx.textAlign = 'left';
+                const num =(item/sum).toFixed(3)*100+'%';
+                circleCtx.strokeText(num,160,-5);
+                circleCtx.stroke();
+                circleCtx.restore()
             });
         },
         methods:{
@@ -55,7 +79,60 @@
             }
         },
         directives:{
+            brokenLine:function (el,val) {
+                const getCount = Math.max.apply(Math, val.value).toString().length;
+                var maxNum = 1 ;
+                for(let i=0 ; i<getCount; i++){
+                    maxNum =maxNum*10
+                }
+                console.log(el);
+                const brokenCtx = el.getContext("2d");
+                brokenCtx.translate(0,460);
+                brokenCtx.moveTo(80,-40);
+                brokenCtx.lineTo(900,-40);
+                brokenCtx.moveTo(80,-40);
+                brokenCtx.lineTo(80,-460);
+                brokenCtx.stroke();
+                for(let i =0 ; i<=10; i++){
+                    brokenCtx.font = "20px '微软雅黑'";
+                    //start|end|center|left|right
+                    brokenCtx.textAlign = 'end';
+                    brokenCtx.strokeText(maxNum/10*i,75,-40*(i+1));
+                    brokenCtx.moveTo(80,-40*(i+1));
+                    brokenCtx.lineTo(90,-40*(i+1));
+                    brokenCtx.stroke();
+                }
+                for(let i =0 ; i<=val.value.length; i++){
+                    brokenCtx.font = "20px '微软雅黑'";
+                    //start|end|center|left|right
+                    brokenCtx.textAlign = 'center';
+                    brokenCtx.strokeText(i+1,(i+1)*(900/val.value.length)-20,-15);
+                    brokenCtx.moveTo((i+1)*(900/val.value.length)-20,-40);
+                    brokenCtx.lineTo((i+1)*(900/val.value.length)-20,-50);
+                    brokenCtx.stroke();
+                }
+                // brokenCtx.moveTo(80,-40);
+                // brokenCtx.lineTo((900/val.value.length)-20,-400*7/maxNum-40);
+                // brokenCtx.stroke();
+                val.value.forEach((item,index)=>{
+                    var begin={},end={};
+                    if(index==0){
+                        begin.x = 80;
+                        begin.y = -40;
+                    }else {
+                        begin.x = index*(900/val.value.length);
+                        begin.y = -400*(val.value[index-1])/maxNum-40;
+                    }
+                    end.x = (index+1)*(900/val.value.length);
+                    end.y = -400*(item)/maxNum-40;
+                    brokenCtx.moveTo(begin.x,begin.y);
+                    brokenCtx.lineTo(end.x,end.y);
+                    brokenCtx.stroke();
+                    //三条线的起点分别是 坐标原点 前面一个线的终点
+                    //三个终点的Y轴位置 -40*(item/maxNum) 三个终点的X轴的位置 (index+1)*(900/val.value.length)
 
+                })
+            }
         }
     }
 </script>
@@ -63,6 +140,6 @@
 <style scoped>
     .cartogram{background-color: #f7f7f7}
     .item{margin-bottom: 10px; background-color: white;}
-    .itemTitle{width: 100vw}
+    .itemTitle{width: 100vw; height: 30px;line-height: 30px}
     .itemContent{width: 100vw}
 </style>

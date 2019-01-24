@@ -7,6 +7,11 @@ import store from './store/index'
 import axios from 'axios'
 import './assets/css/reset.css'
 import './components/directive/directive'
+import Toast from './components/toast'
+import Loading from './components/loading'
+
+Vue.use(Toast);
+Vue.use(Loading);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://www.mige.in/develop';

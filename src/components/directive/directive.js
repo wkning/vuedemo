@@ -23,9 +23,11 @@ import Vue from 'vue';
 //     }
 // });
 var canClick = true;
+//在vue中创建一个全局指令 el 是节点 binding这个是绑定值
 const progress = Vue.directive('progress', function (el, binding) {
     console.log(binding.value);
-    if(binding.value.type=='circle'){
+    //这是圆形进度条
+    if(binding.value.type==2){
 
        if(el.childNodes.length==1) {
            canClick =false;
@@ -90,8 +92,12 @@ const progress = Vue.directive('progress', function (el, binding) {
        }
         console.log(el)
     }else {
-        const progressBar = document.createElement('div');
-        if(el.childNodes.length==0){
+        //这是进度条 现在那边传的参数是这个对吧 el 就是<div class="line" v-progress="param"></div>这个节点 这个和他一样
+        //param:{height:10,color:'cyan',width:100,type:1}
+        //这后面还要我说？
+        const progressBar = document.createElement('div'); //创建一个div 这下面就等于刚我给你写的 只是换成动态的通过param传值来 注意一点当已经添加完一个区动态修改时候不能再创建节点就会出现两个所以要加判断 这个是判断 你修改进度不加这个判断会出现两个
+
+        if(el.childNodes.length==0){ //是列出el的所有子节点在一个数组里 数组里没东西不就没子节点 有就直接改宽度就行 这个只是把指令领出来写就是
             progressBar.style.backgroundColor=binding.value.color;
             progressBar.style.width='0';
             progressBar.style.height=binding.value.height+'px';

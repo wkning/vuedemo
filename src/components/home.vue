@@ -1,6 +1,7 @@
 <template>
   <transition name="fade">
-    <div class="home">
+    <div class="home" @click = "showToast">
+
       <div class="clock">
         <canvas  v-circle width="620" height="620" style="width: 310px; height: 310px ">
 
@@ -11,8 +12,11 @@
 
         </canvas >
       </div>
+      <div>
+        <loading duration='2s' :isshow='true'></loading>
+      </div>
       <hr>
-      <div class="line" v-progress="param"></div>
+      <div class="line" v-progress="param" @click="changeParam"></div>
       <hr>
       <div class="circle" v-progress="param1">
         <div class="circleTitle" @click="changeParam1">
@@ -24,12 +28,13 @@
 </template>
 
 <script>
+  //param 就是binding
     export default {
         name: "home",
         data(){
                 return {
-                param:{height:10,color:'cyan',width:100,type:'line'},
-                param1:{type:'circle',count:80}
+                param:{height:10,color:'cyan',width:60,type:1},
+                param1:{type:2,count:50}
             }
         },
         methods:{
@@ -42,6 +47,16 @@
                 const num = Math.floor(Math.random()*100);
                 console.log(num);
                 this.param1= {type:'circle',count:num}
+            },
+            changeParam:function () {
+                const num = Math.floor(Math.random()*100);
+                console.log(num);
+
+                this.param= {height:10,color:'cyan',width:num,type:1}
+                //这就不会创建新的
+            },
+            showToast:function () {
+                this.$toast("你好");
             }
         },
         directives:{

@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade">
     <div class="cartogram">
         <div class="item">
             <div class="itemTitle">扇形统计图</div>
@@ -19,6 +20,7 @@
             </div>
         </div>
     </div>
+    </transition>
 </template>
 
 <script>
@@ -184,6 +186,14 @@
 </script>
 
 <style scoped>
+    .fade-enter-active, .fade-leave-active {
+        transition: all .5s ease;
+        transform: translateX(0vw);
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+        transform: translateX(100vw);
+    }
     .cartogram{background-color: #f7f7f7}
     .item{margin-bottom: 10px; background-color: white;}
     .itemTitle{width: 100vw; height: 30px;line-height: 30px}

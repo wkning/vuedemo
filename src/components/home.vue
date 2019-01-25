@@ -231,7 +231,11 @@
   .circle{width: 200px; height: 200px; margin: 0 auto;position: relative;}
   .circleTitle{position: absolute; top:50%; left: 50%; width: 40px; height: 40px; text-align: center; line-height: 40px;
     margin-left: -20px; margin-top: -20px; font-size: 20px}
-  .fade-enter, .fade-leave-to {
+  .fade-enter{
+    opacity: 0;
+    transform: translateX(-100vw);
+  }
+  .fade-leave-to{
     opacity: 0;
     transform: translateX(-100vw);
   }

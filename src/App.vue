@@ -130,7 +130,7 @@ export default {
     transform: translateY(64px);
   }
   .container{padding: 40px 0 64px 0}
-  .navBar{position: fixed; top: 0; left: 0; right: 0; height: 40px; border-bottom: 1px solid #ccc;}
+  .navBar{position: fixed; top: 0; left: 0; right: 0; height: 40px; border-bottom: 1px solid #ccc; z-index: 9999}
   .footer{position: fixed; bottom: 0; left: 0; right: 0; height: 64px; border-top: 1px solid #ccc;}
   .leftBarBg{position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.5)}
   .leftBar{height: 100vh; width: 60vw; background-color: white;position: fixed;left: 0; top:0; display: flex; flex-direction: column;}

@@ -2,27 +2,30 @@
   <transition name="fade">
     <div class="home" @click = "showToast">
 
-      <div class="clock">
-        <canvas  v-circle width="620" height="620" style="width: 310px; height: 310px ">
+      <!--<div class="clock">-->
+        <!--<canvas  v-circle width="620" height="620" style="width: 310px; height: 310px ">-->
 
-        </canvas >
-      </div>
-      <div class="clock1">
-        <canvas  v-circle1 width="620" height="620" style="width: 310px; height: 310px ">
+        <!--</canvas >-->
+      <!--</div>-->
+      <!--<div class="clock1">-->
+        <!--<canvas  v-circle1 width="620" height="620" style="width: 310px; height: 310px ">-->
 
-        </canvas >
-      </div>
-      <div>
-        <loading duration='2s' :isshow='true'></loading>
-      </div>
-      <hr>
-      <div class="line" v-progress="param" @click="changeParam"></div>
-      <hr>
-      <div class="circle" v-progress="param1">
-        <div class="circleTitle" @click="changeParam1">
-          {{param1.count+'%'}}
+        <!--</canvas >-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<loading duration='2s' :isshow='true'></loading>-->
+      <!--</div>-->
+      <!--<hr>-->
+      <!--<div class="line" v-progress="param" @click="changeParam"></div>-->
+      <!--<hr>-->
+      <!--<div class="circle" v-progress="param1">-->
+        <!--<div class="circleTitle" @click="changeParam1">-->
+          <!--{{param1.count+'%'}}-->
+        <!--</div>-->
+      <!--</div>-->
+        <div>
+
         </div>
-      </div>
     </div>
   </transition>
 </template>

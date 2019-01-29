@@ -1,7 +1,7 @@
 //底部状态栏
 const state = {
   showFooter:true,
-  changeableNum:1,
+  changeableNum:"",
   showLeft:false
 };
 const getters = {
@@ -17,7 +17,6 @@ const getters = {
 };
 const mutations = {
   show(state){
-    state.changeableNum = 1
     state.showFooter =true
   },
   hide(state){

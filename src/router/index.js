@@ -56,6 +56,20 @@ if(window.localStorage.getItem('user')){
 }
 //对路由进行校验 在路由前对其判断是否需要登录
 router.beforeEach((to, from, next) => {
+  console.log(from);
+  //对重登录页面直接返回的页面恢复底部导航栏状态
+  if(from.name=="Login"){
+      if(store.getters["login/isToken"]){
+          next()
+      }else {
+          store.commit('footerStatus/show');
+          next()
+      }
+  }else {
+    store.dispatch('footerStatus/getNewNum',to.fullPath);
+    next()
+  }
+  //对需要路由去的页面是否需要登录
   if(to.meta.requireAuth){
     if(store.getters["login/isToken"]){
       next()

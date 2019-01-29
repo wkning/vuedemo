@@ -1,9 +1,9 @@
 <template>
     <div class="footerBar">
-      <div @click="showHome" :class="nowTab==1?'active':''">首页{{nowTab}}</div>
-      <div @click="showList" :class="nowTab==2?'active':''">列表</div>
-      <div @click="showPurchase" :class="nowTab==3?'active':''">购物车</div>
-        <div @click="showCartogram" :class="nowTab==4?'active':''">统计图</div>
+      <div @click="showHome" :class="nowTab=='/home'?'active':''">首页{{nowTab}}</div>
+      <div @click="showList" :class="nowTab=='/list'?'active':''">列表</div>
+      <div @click="showPurchase" :class="nowTab=='/purcharse'?'active':''">购物车</div>
+        <div @click="showCartogram" :class="nowTab=='/cartogram'?'active':''">统计图</div>
     </div>
 </template>
 
@@ -18,19 +18,19 @@
     },
     methods:{
       showHome:function () {
-        this.$store.dispatch('footerStatus/getNewNum',1);
+        this.$store.dispatch('footerStatus/getNewNum','/home');
         this.$router.push({path:'/home'})
       },
       showList:function () {
-        this.$store.dispatch('footerStatus/getNewNum',2);
+        this.$store.dispatch('footerStatus/getNewNum','/list');
         this.$router.push({path:'/list'})
       },
       showPurchase:function () {
-        this.$store.dispatch('footerStatus/getNewNum',3);
+        this.$store.dispatch('footerStatus/getNewNum','/purcharse');
         this.$router.push({path:'/purcharse'})
       },
       showCartogram:function () {
-          this.$store.dispatch('footerStatus/getNewNum',4);
+          this.$store.dispatch('footerStatus/getNewNum','/cartogram');
           this.$router.push({path:'/cartogram'})
       }
     },

@@ -55,7 +55,7 @@
         closeLogin:function () {
           //显示底部导航栏
           this.$store.commit('footerStatus/show');
-          this.$store.commit('footerStatus/changeTap',1);
+          this.$store.commit('footerStatus/changeTap','/home');
           this.$router.push({
             path: '/home'
           });

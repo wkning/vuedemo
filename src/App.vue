@@ -56,12 +56,13 @@ export default {
     //console.log(this.$store.getters.isShow);
       if(window.localStorage.getItem('nav')){
           this.$store.commit('footerStatus/changeTap',window.localStorage.getItem('nav'));
+          this.$router.push({path:window.localStorage.getItem('nav')})
       }else {
-          this.$store.commit('footerStatus/changeTap',1);
+          this.$store.commit('footerStatus/changeTap','/home');
       }
     // this.$store.dispatch('getNewNum',10);
     // console.log(this.$store.getters.getChangeableNum)
-      console.log(window.localStorage.getItem('nav'))
+      //console.log(window.localStorage.getItem('nav'))
 
   },
   computed:{
@@ -83,8 +84,8 @@ export default {
   },
   watch:{
     $route(to,from){
-      console.log(to)
-      console.log(from)
+      //console.log(to)
+      //console.log(from)
     }
   }
 }
